@@ -9,12 +9,21 @@ public class patrolMove : MonoBehaviour
 {
     NavMeshAgent 專員;
     Transform 目的;
-    
+    [SerializeField] GameObject oriTarget;
+    [SerializeField] List<Vector3> targetPos;
     // Start is called before the first frame update
     void Start()
     {
         專員 = GetComponent<NavMeshAgent>();
+        GameObject[] allTarget = GameObject.FindGameObjectsWithTag("wayPoint");        
         selectPath();
+        
+        if (oriTarget == null) return;
+        foreach(GameObject tt in allTarget)
+        {
+            targetPos.Add (tt.transform.position);            
+        }
+        
     }
     void selectPath() 
     {
@@ -37,10 +46,18 @@ public class patrolMove : MonoBehaviour
         if (目的 == null) {
             selectPath();
         }
-        //print(Vector3.Distance(this.transform.position, 目的.position));
         if (Vector3.Distance(this.transform.position, 目的.position) < 0.6f) {
-            if(目的.name != "target")
-                Destroy(目的.gameObject);            
+            if (目的.name != "target")
+                Destroy(目的.gameObject);
+            else 
+            {
+                //reset game
+                foreach (Vector3 tt in targetPos)
+                {
+                    Instantiate(oriTarget, tt, Quaternion.identity);
+                }
+                selectPath();
+            }
         }
     }
 }

@@ -4,5 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/FGU_Map_Platformer.unity
+    guid: 0caf3d870a979074bb12af56dfa285a8
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
